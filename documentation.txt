@@ -1,0 +1,10 @@
+1) First created index.html file to display the pokedex images list.
+2) Created pokedex_json.php file to get json data from index page using jquery ajax. It accepts only json request and sends response in json format
+3) After retrieving the values, displayed the data using data tables.
+4) On clicking the image div will expand and shows the complete details of the pokedex. 
+
+To run the project:
+create a folder in xampp>htdocs>project
+> add data and images folders in project
+> add these two files(index.html and pokedex_jason.php)
+> run 

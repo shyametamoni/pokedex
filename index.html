@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Pokedex Images</title>
+
+<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+
+
+<style>
+.pokeman-gallery {
+width:100%;
+padding:5px;
+}
+.pokedex-img {
+width:9%;
+float:left;
+}
+div.container {
+width: 80%;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function() {
+	
+jQuery.ajax(
+
+{
+
+url : 'pokedex_json.php',
+
+type: 'POST',
+
+dataType : "json",
+
+success:function(data) { 
+data = $.parseJSON(data);
+
+success    = data.success;
+
+var dataNew = data.Pokedex_Info;
+var pokedex_data = '';
+var j = 1; 
+$.each(dataNew,function(i) {
+                                       
+        id    = dataNew[i].id;
+		ename    = dataNew[i].ename;
+		type    = dataNew[i].type;
+		Attack    = dataNew[i].Attack;
+		Defense    = dataNew[i].Defense;
+		HP    = dataNew[i].HP;
+		Sp_Atk    = dataNew[i].Sp_Atk;
+		Sp_Def    = dataNew[i].Sp_Def;
+		Speed    = dataNew[i].Speed;
+
+		
+		  pokedex_data =  pokedex_data+'<tr><td style="width:10%;text-align:center;">'+id+'</td><td style="width:20%;text-align:center;">'+ename+'</td><td style="width:30%;text-align:center;"><img id="'+id+'" onclick="expand(this)" src="images/thm/'+id+ename+'.png" style="cursor:pointer;"/></td><td style="width:30%;text-align:center;">'+type+'</td></tr><tr class="'+id+'" style="height:100px;display:none;"><td colspan="4"><div style="text-align:center; width:70%;"><img src="images/img/'+id+ename+'.png" style="float:left;margin-right:20px;"/><p>Id:'+id+'</p><p> '+ename+'</p><p><img src="images/spr/'+id+'MS.png" /></p><p>'+type+'</p> <p>Attack:'+Attack+'</p><p> Defense:'+Defense+'</p><p> HP:'+HP+'</p><p> Sp_Atk:'+Sp_Atk+'</p><p> Sp_Def:'+Sp_Def+'</p><p> Speed:'+Speed+'</p></div></td></tr>';
+		
+		 j++;
+		
+		});	
+		// alert(pokedex_data);
+		// $("#response_data").html(pokedex_data);
+		$('#pokedex-table').children('tbody').html(pokedex_data);
+
+ },
+
+error: function(data) {
+alert('error');
+ }
+
+}
+
+);
+		
+} );
+
+
+function expand(img) {
+var div_class = img.id;
+$('.'+div_class).toggle();
+}
+
+</script>
+<!-- <script type="text/javascript" src="js/jquery.dataTables.columnFilter.js"></script> -->
+</head>
+<body>
+<div class="pokeman-gallery">
+
+		<table id="pokedex-table" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Image</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+		
+		 <tbody>
+
+			
+		</tbody>
+		</table>
+		
+</div>
+
+<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
+
+<script>
+
+$(window).on('load', function() {
+
+
+    $('#pokedex-table').DataTable({
+	 "bPaginate": false
+	});
+	});
+</script>
+
+</body>
+</html>
